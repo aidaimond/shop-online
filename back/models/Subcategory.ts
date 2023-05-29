@@ -3,7 +3,7 @@ import Category from "./Category";
 
 const Schema = mongoose.Schema;
 
-const SubCategorySchema = new Schema({
+const SubcategorySchema = new Schema({
   category: {
     type: Schema.Types.ObjectId,
     ref: 'Category',
@@ -21,6 +21,6 @@ const SubCategorySchema = new Schema({
   description: String,
 });
 
-const SubCategory = mongoose.model("SubCategory", SubCategorySchema);
+const Subcategory = mongoose.model("Subcategory", SubcategorySchema);
 
-export default SubCategory;
+export default Subcategory;

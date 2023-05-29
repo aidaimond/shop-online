@@ -1,6 +1,9 @@
 import mongoose, {Types} from "mongoose";
 import Category from "./Category";
 import Brand from "./Brand";
+import User from "./User";
+import Subcategory from "./Subcategory";
+
 const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema({
@@ -26,11 +29,49 @@ const ProductSchema = new Schema({
       message: 'Category does not exist',
     }
   },
-  colors: [String],
-  price: Number,
+  subcategory: {
+    type: Schema.Types.ObjectId,
+    ref: 'Subcategory',
+    required: true,
+    validate: {
+      validator: async (value: Types.ObjectId) => Subcategory.findById(value),
+      message: 'SubCategory does not exist',
+    }
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+    validate: {
+      validator: async (value: Types.ObjectId) => User.findById(value),
+      message: 'User does not exist',
+    }
+  },
+  colors:  [{
+    type: String,
+    required: true,
+  }],
+  price: {
+    type: Number,
+    required:true,
+  },
   sale: Number,
-  composition: String,
-  gender: String,
+  composition: {
+    type: String,
+    required: true,
+  },
+  gender: {
+    type: String,
+    required: true,
+  },
+  images: [{
+    type: String,
+    required: true,
+  }],
+  datetime: {
+    type: String,
+    required: true,
+  },
 });
 
 const Product = mongoose.model("Product", ProductSchema);
