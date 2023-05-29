@@ -36,6 +36,12 @@ const UserSchema = new Schema<IUser, UserModel, IUserMethods> ({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    required: true,
+    default: 'user',
+    enum: ['user', 'admin', 'moderator']
+  },
   displayName: {
     type: String,
     required: true,
@@ -44,6 +50,8 @@ const UserSchema = new Schema<IUser, UserModel, IUserMethods> ({
     type: String,
     required: true,
   },
+  googleID: String,
+  avatar: String,
 });
 
 UserSchema.pre('save', async function(next) {
@@ -56,7 +64,7 @@ UserSchema.pre('save', async function(next) {
 });
 
 UserSchema.set('toJSON', {
-  transform: (doc, ret, options) => {
+  transform: (doc, ret) => {
     delete ret.password;
     return ret;
   }
