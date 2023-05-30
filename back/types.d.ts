@@ -20,4 +20,5 @@ export interface IProduct {
   gender: string;
   images: [string];
   datetime: string;
+  composition: string;
 }
