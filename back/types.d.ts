@@ -22,3 +22,9 @@ export interface IProduct {
   datetime: string;
   composition: string;
 }
+
+export interface IComment {
+  product: string;
+  user: string;
+  description: string;
+}
