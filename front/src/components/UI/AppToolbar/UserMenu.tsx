@@ -19,14 +19,14 @@ const UserMenu: React.FC<Props> = ({user}) => {
   return (
     <>
       <Button
-        color="inherit"
+        color="inherit" sx={{ color: '#000000' }}
       >
         Hello, {user.displayName}
       </Button>
-      <Button component={NavLink} to="/new-product" color="inherit">
+      <Button component={NavLink} to="/new-product"  color="inherit" sx={{ color: '#000000' }}>
         Add new item
       </Button>
-      <Button onClick={handleLogout} component={NavLink} to="/" color="inherit">
+      <Button onClick={handleLogout} component={NavLink} to="/"  color="inherit" sx={{ color: '#000000' }}>
         Logout
       </Button>
     </>

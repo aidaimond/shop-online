@@ -35,16 +35,33 @@ const run = async () => {
     category: watches._id,
   }, {title: "Silver", category: accessories._id,});
 
-  const [user1, user2] = await User.create({
-    username: "user",
-    password: "1qaz2wsx",
-    token: crypto.randomUUID(),
-    displayName: "User-1",
-    phoneNumber: "+996555000555",
-  }, {
-    username: "attractor", password: "2wsx3edc", token: crypto.randomUUID(), displayName: "User-2",
-    phoneNumber: "+996555000999"
-  });
+  const [user1, user2, attractor] = await User.create({
+      email: 'user@mail.ru',
+      password: '1qaz2wsx',
+      avatar: 'fixtures/user.jpeg',
+      displayName: 'User',
+      token: crypto.randomUUID(),
+      role: 'user',
+    phoneNumber: '0555000555',
+    },
+    {
+      email: 'admin@mail.ru',
+      password: '2wsx3edc',
+      avatar: 'fixtures/attractor.jpeg',
+      displayName: 'Admin',
+      token: crypto.randomUUID(),
+      role: 'admin',
+      phoneNumber: '0555000555',
+    },
+    {
+      email: 'attractor@mail.ru',
+      password: '1qaz2wsx',
+      avatar: 'fixtures/attractor.jpeg',
+      displayName: 'Attractor',
+      token: crypto.randomUUID(),
+      role: 'user',
+      phoneNumber: '0555000555',
+    });
 
   await Product.create({
       title: "Octea Nova Watch",
@@ -72,7 +89,7 @@ const run = async () => {
       gender: 'women',
       composition: "silver",
       images: ["fixtures/glamWatch.jpeg"],
-      user: user2._id,
+      user: attractor._id,
       datetime: '2023-03-03T11:19:13.952Z',
     },
     {

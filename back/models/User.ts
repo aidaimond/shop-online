@@ -15,7 +15,7 @@ const Schema = mongoose.Schema;
 const SALT_WORK_FACTOR = 10;
 
 const UserSchema = new Schema<IUser, UserModel, IUserMethods> ({
-  username: {
+  email: {
     type: String,
     required: true,
     unique: true,
@@ -51,7 +51,10 @@ const UserSchema = new Schema<IUser, UserModel, IUserMethods> ({
     required: true,
   },
   googleID: String,
-  avatar: String,
+  avatar: {
+    type: String,
+    required: true,
+  }
 });
 
 UserSchema.pre('save', async function(next) {

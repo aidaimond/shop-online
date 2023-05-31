@@ -7,10 +7,10 @@ import { useAppSelector } from '../../../app/hooks';
 import { selectUser } from '../../../features/users/usersSlice';
 
 const Link = styled(NavLink)({
-  color: 'inherit',
+  color: '#000000', // Изменили цвет текста на черный
   textDecoration: 'none',
   '&:hover': {
-    color: 'inherit'
+    color: '#000000', // Цвет при наведении также черный
   },
 });
 
@@ -18,7 +18,7 @@ const AppToolbar = () => {
   const user = useAppSelector(selectUser);
 
   return (
-    <AppBar position="sticky" sx={{mb: 2}}>
+    <AppBar position="sticky" sx={{mb: 2, backgroundColor: '#EDEAE0'}}>
       <Toolbar>
         <Grid container justifyContent={'space-between'} alignItems={"center"}>
           <Typography variant="h6" component="div">
