@@ -7,6 +7,7 @@ import categoriesRouter from "./routers/categories";
 import productsRouter from "./routers/products";
 import subcategoriesRouter from "./routers/subcategories";
 import commentsRouter from "./routers/comments";
+import brandsRouter from "./routers/brands";
 
 const app = express();
 const port = 8000;
@@ -20,6 +21,7 @@ app.use('/categories', categoriesRouter);
 app.use('/products', productsRouter);
 app.use('/subcategories', subcategoriesRouter);
 app.use('/comments', commentsRouter);
+app.use('/brands', brandsRouter);
 
 const run = async () => {
   mongoose.set('strictQuery', false);

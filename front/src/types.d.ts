@@ -39,6 +39,7 @@ export interface GlobalError {
 }
 
 export interface Brand {
+  _id: string;
   title: string;
   description: string;
 }
