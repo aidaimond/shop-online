@@ -42,10 +42,8 @@ productsRouter.get('/:id', async (req, res, next) => {
 productsRouter.post('/', imagesUpload.single('image'), auth, async (req, res, next) => {
 
   const user = (req as RequestWithUser).user;
-  if (!req.file || !req.body.title || !req.body.price || !req.body.description || !req.body.category ||
-  !user ||
-  !req.body.subcategory) {
-    return res.status(400).send({error: 'All fields are required'});
+  if (!req.file) {
+    return res.status(400).send({error: 'Image is required'});
   }
   const category = await Category.findOne({_id: req.body.category});
   const subcategory = await Subcategory.findOne({_id: req.body.subcategory});
@@ -58,11 +56,10 @@ productsRouter.post('/', imagesUpload.single('image'), auth, async (req, res, ne
         category: category._id.toString(),
         subcategory: subcategory._id.toString(),
         user: user._id.toString(),
-        colors: req.body.colors,
+        color: req.body.color,
         price: parseFloat(req.body.price),
-        sale: parseFloat(req.body.sale),
-        gender: req.body.gender,
-        images: [req.file.filename],
+        composition: req.body.composition,
+        image: req.file.filename,
         datetime: new Date().toISOString(),
       };
 

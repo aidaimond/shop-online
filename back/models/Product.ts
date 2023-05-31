@@ -54,19 +54,10 @@ const ProductSchema = new Schema({
     type: Number,
     required:true,
   },
-  sale: Number,
-  composition: {
+  image: {
     type: String,
     required: true,
   },
-  gender: {
-    type: String,
-    required: true,
-  },
-  images: [{
-    type: String,
-    required: true,
-  }],
   datetime: {
     type: String,
     required: true,

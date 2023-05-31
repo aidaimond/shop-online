@@ -62,11 +62,9 @@ export interface Product {
   category: Category;
   subcategory: Subcategory;
   user: User;
-  colors: [string];
+  color: string;
   price: number;
-  sale: number;
-  gender: string;
-  images: [string];
+  image: string;
   datetime: string;
   composition: string;
 }
@@ -76,11 +74,9 @@ export interface ProductMutation {
   brand: string;
   category: string;
   subcategory: string;
-  colors: string;
+  color: string;
   price: string;
-  sale: string;
-  gender: string;
-  images: File | null;
+  image: File | null;
   composition: string;
 }
 

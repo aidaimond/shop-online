@@ -16,9 +16,7 @@ export interface IProduct {
   user: string;
   color: string;
   price: number;
-  sale: number;
-  gender: string;
-  images: [string];
+  image: string;
   datetime: string;
   composition: string;
 }
