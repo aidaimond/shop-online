@@ -7,6 +7,7 @@ import NewProduct from "./features/products/NewProduct";
 import Register from "./features/users/Register";
 import Login from "./features/users/Login";
 import Products from "./features/products/Products";
+import Basket from "./features/basket/Basket";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/" element={<Products/>}/>
             <Route path="/products" element={<Products/>}/>
             <Route path="/products/:categoryId" element={<Products/>}/>
+            <Route path="/basket" element={<Basket/>}/>
             <Route path="/product/:id" element={<OneProduct/>}/>
             <Route path="/new-product" element={<NewProduct/>}/>
             <Route path={'/register'} element={<Register/>} />
