@@ -32,7 +32,6 @@ const ProductSchema = new Schema({
   subcategory: {
     type: Schema.Types.ObjectId,
     ref: 'Subcategory',
-    required: true,
     validate: {
       validator: async (value: Types.ObjectId) => Subcategory.findById(value),
       message: 'SubCategory does not exist',
@@ -47,10 +46,10 @@ const ProductSchema = new Schema({
       message: 'User does not exist',
     }
   },
-  colors:  [{
+  color:  {
     type: String,
     required: true,
-  }],
+  },
   price: {
     type: Number,
     required:true,

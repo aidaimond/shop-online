@@ -1,11 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Category } from '../../types';
+import { Subcategory} from '../../types';
 import axiosApi from '../../axiosApi';
 
-export const fetchSubcategories = createAsyncThunk<Category[]>(
+export const fetchSubcategories = createAsyncThunk<Subcategory[]>(
   'subcategories/fetch',
   async () => {
-    const response = await  axiosApi.get<Category[]>('/subcategories');
+    const response = await  axiosApi.get<Subcategory[]>('/subcategories');
     return response.data;
   }
 )

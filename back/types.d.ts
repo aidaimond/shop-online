@@ -14,7 +14,7 @@ export interface IProduct {
   category: string;
   subcategory: string;
   user: string;
-  colors: [string];
+  color: string;
   price: number;
   sale: number;
   gender: string;
