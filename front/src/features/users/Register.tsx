@@ -5,7 +5,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {Link as RouterLink, useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {selectRegisterError, selectRegisterLoading} from './usersSlice';
-import {register} from './usersThunks';
+import {googleLogin, register} from './usersThunks';
+import FileInput from "../../components/UI/FileInput/FileInput";
+import {GoogleLogin} from "@react-oauth/google";
 
 const Register = () => {
   const dispatch = useAppDispatch();
@@ -13,7 +15,7 @@ const Register = () => {
   const registerLoading = useAppSelector(selectRegisterLoading);
   const navigate = useNavigate();
 
-  const [state, setState] = useState<RegisterMutation>({username: '', password: '', displayName: '', phoneNumber: ''});
+  const [state, setState] = useState<RegisterMutation>({email: '', password: '', displayName: '', avatar: null});
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target;
@@ -41,6 +43,19 @@ const Register = () => {
     }
   };
 
+  const googleLoginHandler = async (credential: string) => {
+    await dispatch(googleLogin(credential)).unwrap();
+    navigate('/');
+  };
+
+  const fileInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {name, files} = e.target;
+    setState(prevState => ({
+      ...prevState, [name]: files && files[0] ? files[0] : null,
+    }));
+  };
+
+
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -57,18 +72,31 @@ const Register = () => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
+        <Box sx={{pt: 2}}>
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              if (credentialResponse.credential) {
+                void googleLoginHandler(credentialResponse.credential);
+              }
+            }}
+            onError={() => {
+              console.log('Login Failed');
+            }}
+          />
+        </Box>
         <Box component="form" onSubmit={submitFormHandler} sx={{mt: 3}}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
                 required
-                label="Username"
-                name="username"
-                autoComplete="new-username"
-                value={state.username}
+                label="Email"
+                name="email"
+                autoComplete="new-email"
+                value={state.email}
+                type="email"
                 onChange={inputChangeHandler}
-                error={Boolean(getFieldError('username'))}
-                helperText={getFieldError('username')}
+                error={Boolean(getFieldError('email'))}
+                helperText={getFieldError('email')}
               />
             </Grid>
             <Grid item xs={12}>
@@ -87,9 +115,8 @@ const Register = () => {
             <Grid item xs={12}>
               <TextField
                 required
-                name="displayName"
                 label="Display Name"
-                type="displayName"
+                name="displayName"
                 autoComplete="new-displayName"
                 value={state.displayName}
                 onChange={inputChangeHandler}
@@ -98,30 +125,21 @@ const Register = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                required
-                name="phoneNumber"
-                label="Phone Number"
-                type="phoneNumber"
-                autoComplete="new-phoneNumber"
-                value={state.phoneNumber}
-                onChange={inputChangeHandler}
-                error={Boolean(getFieldError('phoneNumber'))}
-                helperText={getFieldError('phoneNumber')}
-              />
+              <FileInput onChange={fileInputChangeHandler} name="avatar" label="Avatar"/>
             </Grid>
           </Grid>
           <Button
             type="submit"
             fullWidth
             variant="contained"
+            color="secondary"
             sx={{mt: 3, mb: 2}}
           >
             {registerLoading ? <CircularProgress/> : "Sign Up"}
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link component={RouterLink} to="/login" variant="body2">
+              <Link component={RouterLink} to="/login" variant="body2" color="secondary">
                 Already have an account? Sign in
               </Link>
             </Grid>

@@ -1,22 +1,23 @@
-import React, {useState} from 'react';
-import {Link as RouterLink, useNavigate} from 'react-router-dom';
-import {LoginMutation} from '../../types';
+import React, { useState } from 'react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { LoginMutation } from '../../types';
 import {
-  Alert,
   Avatar,
   Box,
   Button,
-  CircularProgress,
   Container,
   Grid,
   Link,
   TextField,
-  Typography
+  Typography,
+  Alert,
+  CircularProgress
 } from '@mui/material';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {selectLoginError, selectLoginLoading} from './usersSlice';
-import {login} from './usersThunks';
+import {googleLogin, login} from './usersThunks';
+import {GoogleLogin} from "@react-oauth/google";
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -25,7 +26,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [state, setState] = useState<LoginMutation>({
-    username: '',
+    email: '',
     password: '',
   });
 
@@ -37,6 +38,11 @@ const Login = () => {
   const submitFormHandler = async (event: React.FormEvent) => {
     event.preventDefault();
     await dispatch(login(state)).unwrap();
+    navigate('/');
+  };
+
+  const googleLoginHandler = async (credential: string) => {
+    await dispatch(googleLogin(credential)).unwrap();
     navigate('/');
   };
 
@@ -56,6 +62,18 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Sign In
         </Typography>
+        <Box sx={{ pt: 2 }}>
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              if (credentialResponse.credential) {
+                void googleLoginHandler(credentialResponse.credential);
+              }
+            }}
+            onError={() => {
+              console.log('Login Failed');
+            }}
+          />
+        </Box>
         {error && (
           <Alert
             severity="error"
@@ -69,10 +87,11 @@ const Login = () => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                label="Username"
-                name="username"
-                autoComplete="current-username"
-                value={state.username}
+                label="Email"
+                name="email"
+                autoComplete="current-email"
+                value={state.email}
+                type="email"
                 onChange={inputChangeHandler}
               />
             </Grid>
@@ -91,13 +110,14 @@ const Login = () => {
             type="submit"
             fullWidth
             variant="contained"
+            color="secondary"
             sx={{mt: 3, mb: 2}}
           >
-            {loginLoading ? <CircularProgress/> : "Sign In"}
+            {loginLoading ? <CircularProgress/>: "Sign In"}
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link component={RouterLink} to="/register" variant="body2">
+              <Link component={RouterLink} to="/register" variant="body2" color="secondary">
                 Or sign up
               </Link>
             </Grid>

@@ -18,10 +18,10 @@ export interface ValidationError {
 }
 
 export interface RegisterMutation {
-  username: string;
+  email: string;
   password: string;
   displayName: string;
-  phoneNumber: string;
+  avatar: File | null;
 }
 
 export interface RegisterResponse {
@@ -30,10 +30,66 @@ export interface RegisterResponse {
 }
 
 export interface LoginMutation {
-  username: string;
+  email: string;
   password: string;
 }
 
 export interface GlobalError {
   error: string;
 }
+
+export interface Brand {
+  title: string;
+  description: string;
+}
+
+export interface Category {
+  _id: string;
+  title: string;
+}
+
+export interface Subcategory {
+  _id: string;
+  title: string;
+  category: Category;
+}
+
+export interface Product {
+  _id: string;
+  title: string;
+  brand: Brand;
+  category: Category;
+  subcategory: Subcategory;
+  user: User;
+  colors: [string];
+  price: number;
+  sale: number;
+  gender: string;
+  images: [string];
+  datetime: string;
+  composition: string;
+}
+
+export interface ProductMutation {
+  title: string;
+  brand: string;
+  category: string;
+  subcategory: string;
+  colors: string;
+  price: string;
+  sale: string;
+  gender: string;
+  images: File | null;
+  composition: string;
+}
+
+export interface Comment {
+  _id: number;
+  description: string;
+}
+
+export interface CommentsMutation {
+  author: string;
+  description: string;
+}
+
