@@ -11,6 +11,7 @@ interface Props {
 const CommentItem: React.FC<Props> = ({comment, onDelete}) => {
   return (
     <Grid item >
+      <p><strong>{comment.user.displayName}</strong>  : {comment.description}</p>
       <Button color={"secondary"}
               startIcon={<DeleteIcon />} variant="outlined"
               onClick={() => onDelete(comment._id.toString())}

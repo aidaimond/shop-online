@@ -12,7 +12,7 @@ const commentsRouter = express.Router();
 commentsRouter.get('/', async (req, res, next) => {
   try {
     if (req.query.product_id) {
-      const result = await Comment.find({product: req.query.product_id});
+      const result = await Comment.find({product: req.query.product_id}).populate('user');
       return res.send(result);
     } else {
       const result = await Comment.find();

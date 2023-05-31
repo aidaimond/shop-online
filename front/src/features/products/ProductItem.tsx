@@ -18,7 +18,7 @@ const ProductItem: React.FC<Props> = ({ product }) => {
             height="auto"
             image={apiURL + '/' + product.image}
             alt={product.title}
-            sx={{ maxHeight: '100%', objectFit: 'cover' }}
+            sx={{ maxHeight: 400, objectFit: 'cover' }}
           />
         </CardActionArea>
         <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>

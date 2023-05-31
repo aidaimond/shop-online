@@ -82,11 +82,17 @@ export interface ProductMutation {
 
 export interface Comment {
   _id: number;
+  product: Product;
+  user: User;
   description: string;
 }
 
 export interface CommentsMutation {
-  author: string;
+  description: string;
+}
+
+export interface CommentWithProduct {
+  product: string;
   description: string;
 }
 
