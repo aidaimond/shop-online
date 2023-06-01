@@ -28,7 +28,7 @@ const run = async () => {
 
   const [watches, accessories, jewelry, decorations] = await Category.create({
     title: "Watches",
-  }, {title: "Accessories"}, {title: "Jewelry"});
+  }, {title: "Accessories"}, {title: "Jewelry"}, {title: "Decorations"});
 
   const [pens, sunglasses, homeDecor, christmas, womenWatches, swissMade, bracelets, necklaces, rings] = await Subcategory.create({
     title: "Pens",

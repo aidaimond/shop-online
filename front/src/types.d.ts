@@ -96,3 +96,7 @@ export interface CommentWithProduct {
   description: string;
 }
 
+export interface Basket {
+  product: Product;
+}
+

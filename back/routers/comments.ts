@@ -25,9 +25,7 @@ commentsRouter.get('/', async (req, res, next) => {
 
 commentsRouter.post('/', imagesUpload.single('image'), auth, async (req, res, next) => {
   const user = (req as RequestWithUser).user;
-  if (!req.body.product || !req.body.description) {
-    return res.status(400).send({error: 'Comment product or description are required'});
-  }
+
   const product = await Product.findOne({_id: req.body.product});
 
   if (product) {

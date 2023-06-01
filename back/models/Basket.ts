@@ -5,14 +5,21 @@ const Schema = mongoose.Schema;
 
 const BasketSchema = new Schema({
   basketItems: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Product',
-      validate: {
-        validator: async (value: Types.ObjectId) => Product.findById(value),
-        message: "Product does not exist",
+    {product:     {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'Product',
+        validate: {
+          validator: async (value: Types.ObjectId) => Product.findById(value),
+          message: "Product does not exist",
+        },
       },
-    },
+    amount: {
+      type: Number,
+      required: true,
+      default: 1,
+    }
+    }
   ],
   user: {
     type: Schema.Types.ObjectId,
@@ -22,10 +29,6 @@ const BasketSchema = new Schema({
       validator: async (value: Types.ObjectId) => User.findById(value),
       message: 'User does not exist',
     }
-  },
-  amount: {
-    type: Number,
-    required: true,
   }
 });
 

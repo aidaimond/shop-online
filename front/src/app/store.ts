@@ -8,6 +8,7 @@ import {categoriesReducer} from "../features/categories/categoriesSlice";
 import {commentsReducer} from "../features/comments/CommentSlice";
 import {subcategoriesReducer} from "../features/subcategories/SubcategoriesSlice";
 import {brandsReducer} from "../features/brands/brandsSlice";
+import {basketReducer} from "../features/basket/basketSlice";
 
 const usersPersistConfig = {
   key: 'shine:users',
@@ -21,7 +22,7 @@ const rootReducer = combineReducers({
   subcategories: subcategoriesReducer,
   comments: commentsReducer,
   brands: brandsReducer,
-
+  basket: basketReducer,
   users: persistReducer(usersPersistConfig, usersReducer),
 });
 
