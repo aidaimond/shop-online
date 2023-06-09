@@ -26,6 +26,9 @@ const UserMenu: React.FC<Props> = ({user}) => {
       <Button component={NavLink} to="/new-product"  color="inherit" sx={{ color: '#000000' }}>
         Add new item
       </Button>
+      <Button component={NavLink} to="/basket"  color="inherit" sx={{ color: '#000000' }}>
+        Basket
+      </Button>
       <Button onClick={handleLogout} component={NavLink} to="/"  color="inherit" sx={{ color: '#000000' }}>
         Logout
       </Button>

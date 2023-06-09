@@ -7,10 +7,10 @@ import { useAppSelector } from '../../../app/hooks';
 import { selectUser } from '../../../features/users/usersSlice';
 
 const Link = styled(NavLink)({
-  color: '#000000', // Изменили цвет текста на черный
+  color: '#000000',
   textDecoration: 'none',
   '&:hover': {
-    color: '#000000', // Цвет при наведении также черный
+    color: '#000000',
   },
 });
 

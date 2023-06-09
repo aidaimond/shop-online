@@ -33,7 +33,7 @@ const BasketItem: React.FC<Props> = ({product, amount}) => {
   };
 
   return (
-    <div style={{display: 'flex', alignItems: 'center', marginBottom: 16}}>
+    <div style={{display: 'flex', alignItems: 'center', marginBottom: '25px'}}>
       <img
         src={apiURL + '/' + product.image}
         alt={product.title}
