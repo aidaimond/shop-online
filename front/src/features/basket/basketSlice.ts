@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import {Basket} from "../../types";
-import {createBasket, fetchBasket} from "./basketThunks";
+import {createBasket, deleteBasket, fetchBasket} from "./basketThunks";
 
 interface BasketState {
   basket: Basket[];
@@ -36,8 +36,20 @@ export const basketSlice = createSlice({
     });
     builder.addCase(createBasket.fulfilled, (state) => {
       state.basketLoading = false;
+
     });
     builder.addCase(createBasket.rejected, (state) => {
+      state.basketLoading = false;
+    });
+
+    builder.addCase(deleteBasket.pending, (state) => {
+      state.basketLoading = true;
+    });
+    builder.addCase(deleteBasket.fulfilled, (state) => {
+      state.basketLoading = false;
+
+    });
+    builder.addCase(deleteBasket.rejected, (state) => {
       state.basketLoading = false;
     });
   }

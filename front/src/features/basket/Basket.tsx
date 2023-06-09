@@ -11,11 +11,12 @@ const Basket = () => {
 
   useEffect(() => {
     dispatch(fetchBasket());
-  }, []);
+  }, [dispatch]);
 
   const checkout = () => {
 
   };
+
 
   return (
     <div>
