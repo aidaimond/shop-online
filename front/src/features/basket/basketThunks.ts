@@ -8,7 +8,7 @@ export const fetchBasket = createAsyncThunk<Basket[]>(
     const response = await  axiosApi.get<Basket[]>('/basket');
     return response.data;
   }
-)
+);
 
 export const createBasket = createAsyncThunk<void, string>(
   'basket/create',

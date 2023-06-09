@@ -1,6 +1,15 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import {Product} from "../../types";
+import {apiURL} from "../../constants";
+import {styled} from '@mui/system';
+import BeigeButton from "../../components/beigeButton/BeigeButton";
+
+const StyledButtonWrapper = styled('div')`
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+`;
 
 interface Props {
   product: Product;
@@ -8,10 +17,19 @@ interface Props {
 }
 
 const BasketItem: React.FC<Props> = ({product, amount}) => {
+
+  const addItem = async () => {
+
+  };
+
+  const deleteItem = async () => {
+
+  };
+
   return (
     <div style={{display: 'flex', alignItems: 'center', marginBottom: 16}}>
       <img
-        src={product.image}
+        src={apiURL + '/' + product.image}
         alt={product.title}
         style={{marginRight: 16, width: 80, height: 80, objectFit: 'cover'}}
       />
@@ -20,9 +38,12 @@ const BasketItem: React.FC<Props> = ({product, amount}) => {
         <Typography variant="body1">Price: ${product.price}</Typography>
         <Typography variant="body2">Quantity: {amount}</Typography>
       </div>
+      <StyledButtonWrapper>
+        <BeigeButton onClick={deleteItem} buttonName={'-'}/>
+        <BeigeButton onClick={addItem} buttonName={'+'}/>
+      </StyledButtonWrapper>
     </div>
   );
 };
 
 export default BasketItem;
-

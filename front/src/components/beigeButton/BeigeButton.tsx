@@ -5,9 +5,10 @@ import {selectDeleteLoading} from "../../features/products/productsSlice";
 
 interface Props {
   onClick: () => void;
+  buttonName: string;
 }
 
-const BeigeButton: React.FC<Props> = ({onClick}) => {
+const BeigeButton: React.FC<Props> = ({onClick, buttonName}) => {
 
   const deleteLoading = useAppSelector(selectDeleteLoading);
 
@@ -17,17 +18,17 @@ const BeigeButton: React.FC<Props> = ({onClick}) => {
       color="inherit"
       sx={{
         mb: 2,
-        backgroundColor: '#EDEAE0',
+        backgroundColor: '#EDCDC2',
         color: 'black',
         mx: 'auto',
         display: 'block',
         '&:hover': {
-          backgroundColor: '#EDCDC2',
+          backgroundColor: '#EDEAE0',
         },
       }}
       onClick={onClick}
     >
-      {deleteLoading ? <CircularProgress size={20} color="secondary" /> : 'Delete'}
+      {deleteLoading ? <CircularProgress size={20} color="secondary" /> : buttonName}
     </Button>
   );
 };

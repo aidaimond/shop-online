@@ -97,6 +97,8 @@ export interface CommentWithProduct {
 }
 
 export interface Basket {
+  _id: string;
   product: Product;
+  amount: number;
 }
 

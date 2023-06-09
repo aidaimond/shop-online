@@ -23,9 +23,9 @@ export const basketSlice = createSlice({
     builder.addCase(fetchBasket.pending, (state) => {
       state.basketLoading = true;
     });
-    builder.addCase(fetchBasket.fulfilled, (state, {payload: categories}) => {
+    builder.addCase(fetchBasket.fulfilled, (state, {payload: basket}) => {
       state.basketLoading = false;
-      state.basket = categories;
+      state.basket = basket;
     });
     builder.addCase(fetchBasket.rejected, (state) => {
       state.basketLoading = false;

@@ -1,10 +1,11 @@
 import React from 'react';
-import {Button, Card, CardActionArea, CardContent, CardMedia, Grid, Typography} from '@mui/material';
+import {Card, CardActionArea, CardContent, CardMedia, Grid, Typography} from '@mui/material';
 import {apiURL} from '../../constants';
 import {Product} from '../../types';
 import {Link} from 'react-router-dom';
 import {useAppDispatch} from "../../app/hooks";
 import {createBasket} from "../basket/basketThunks";
+import BeigeButton from "../../components/beigeButton/BeigeButton";
 
 interface Props {
   product: Product;
@@ -13,7 +14,7 @@ interface Props {
 const ProductItem: React.FC<Props> = ({product}) => {
   const dispatch = useAppDispatch()
 
-  const handleAddToCart = async () => {
+  const handleAddToBasket = async () => {
     await dispatch(createBasket(product._id));
   };
 
@@ -33,10 +34,10 @@ const ProductItem: React.FC<Props> = ({product}) => {
           <Typography variant="h6" component="div" gutterBottom>
             {product.title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" sx={{marginBottom: 1}}>
             Price: {product.price} $
           </Typography>
-          <Button onClick={() => handleAddToCart()}>bb </Button>
+          <BeigeButton onClick={() => handleAddToBasket()} buttonName={'Add to cart'}/>
         </CardContent>
       </Card>
     </Grid>

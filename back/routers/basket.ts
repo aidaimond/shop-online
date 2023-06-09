@@ -5,10 +5,11 @@ import auth, {RequestWithUser} from "../middleware/auth";
 
 export const basketRouter = express.Router();
 
-basketRouter.get('/', async (req, res, next) => {
+basketRouter.get('/', auth, async (req, res, next) => {
   try {
-    const basket = await Basket.find();
-    return res.send(basket);
+    const user = (req as RequestWithUser).user;
+    const basket = await Basket.find({user: user._id}).populate('basketItems.product');
+    return res.send(basket[0].basketItems);
   } catch (e) {
     return next(e);
   }
@@ -21,7 +22,6 @@ basketRouter.post('/', auth, async (req, res, next) => {
 
     const basket = await Basket.findOne({user: user._id});
     console.log('basket: ', basket);
-
 
     if (basket) {
       const existingProduct = basket.basketItems.find((product) => product.product._id.toString() === productId);

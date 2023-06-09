@@ -1,25 +1,32 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {selectProducts} from "../products/productsSlice";
 import BasketItem from "./BasketItem";
-import {fetchProducts} from "../products/productsThunks";
+import BeigeButton from "../../components/beigeButton/BeigeButton";
+import {fetchBasket} from "./basketThunks";
+import {selectBasket} from "./basketSlice";
 
 const Basket = () => {
-  const products = useAppSelector(selectProducts);
+  const basket = useAppSelector(selectBasket);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, [])
+    dispatch(fetchBasket());
+  }, []);
+
+  const checkout = () => {
+
+  };
+
   return (
     <div>
-      {products.map((product) => (
+      {basket.map((item) => (
         <BasketItem
-          key={product._id}
-          product={product}
-          amount={1}
+          key={item.product._id}
+          product={item.product}
+          amount={item.amount}
         />
       ))}
+      <BeigeButton onClick={checkout} buttonName={'Checkout'}/>
     </div>
   );
 };

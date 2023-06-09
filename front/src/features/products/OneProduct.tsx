@@ -100,7 +100,7 @@ const OneProduct = () => {
                     {product?.composition}
                   </Typography>
                   {user?._id === product?.user._id && (
-                    <BeigeButton onClick={removeProduct}/>
+                    <BeigeButton onClick={removeProduct} buttonName={'Delete'}/>
                   )}
                 </CardContent>
               </>
