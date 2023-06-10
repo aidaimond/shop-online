@@ -102,3 +102,16 @@ export interface Basket {
   amount: number;
 }
 
+export interface Order {
+
+}
+
+export interface ShippingMutation {
+  city: string;
+  street: string;
+  house: string;
+  apartment: string;
+  entrance: string;
+  floor: string;
+  notes: string;
+}

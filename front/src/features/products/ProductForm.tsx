@@ -35,8 +35,6 @@ const ProductForm: React.FC<Props> = ({onSubmit}) => {
     brand: '',
   });
 
-  console.log(state);
-
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(fetchSubcategories());

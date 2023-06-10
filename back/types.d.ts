@@ -1,3 +1,5 @@
+import ObjectId = module;
+
 export interface IUser {
   email: string;
   password: string;
@@ -8,6 +10,7 @@ export interface IUser {
   googleID: string;
   avatar: string;
 }
+
 export interface IProduct {
   title: string;
   brand: string;
@@ -25,4 +28,22 @@ export interface IComment {
   product: string;
   user: string;
   description: string;
+}
+
+export interface IBasket {
+  product: ObjectId;
+  amount: number;
+}
+
+export interface IOrder {
+  basketItems: IBasket[],
+  city: string;
+  street: string;
+  house: string;
+  apartment: string;
+  entrance: string;
+  floor: string;
+  notes: string;
+  user: string;
+  datetime: string;
 }
