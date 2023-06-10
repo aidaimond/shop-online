@@ -1,12 +1,15 @@
 import React, {useState} from 'react';
-import {Button, Grid, TextField} from '@mui/material';
+import {Button, CircularProgress, Grid, TextField} from '@mui/material';
 import {ShippingMutation} from "../../types";
+import {useAppSelector} from "../../app/hooks";
+import {selectCreateOrderLoading} from "./orderSlice";
 
 interface Props {
   onSubmit: (mutation: ShippingMutation) => void;
 }
 
 const ShippingForm: React.FC<Props> = ({onSubmit}) => {
+  const createLoading = useAppSelector(selectCreateOrderLoading);
   const [state, setState] = useState<ShippingMutation>({
     city: '',
     street: '',
@@ -103,7 +106,7 @@ const ShippingForm: React.FC<Props> = ({onSubmit}) => {
         </Grid>
         <Grid item xs>
           <Button type="submit" color="primary" variant="contained">
-            Submit
+            {createLoading ? <CircularProgress/> : 'Submit'}
           </Button>
         </Grid>
       </Grid>

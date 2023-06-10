@@ -3,6 +3,7 @@ export interface User {
   username: string;
   token: string;
   displayName: string;
+  role: string;
 }
 
 export interface ValidationError {
@@ -103,7 +104,18 @@ export interface Basket {
 }
 
 export interface Order {
-
+  city: string;
+  street: string;
+  house: string;
+  apartment: string;
+  entrance: string;
+  floor: string;
+  notes: string;
+  basketItems: Basket[],
+  user: string;
+  datetime: string;
+  status: string;
+  _id: string;
 }
 
 export interface ShippingMutation {

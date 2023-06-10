@@ -1,7 +1,9 @@
 import React from 'react';
-import { Button, Grid } from '@mui/material';
+import {Button, CircularProgress, Grid} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {Comment} from "../../types";
+import {useAppSelector} from "../../app/hooks";
+import {selectDeleteCommentsLoading} from "./CommentSlice";
 
 interface Props {
   comment: Comment;
@@ -9,6 +11,8 @@ interface Props {
 }
 
 const CommentItem: React.FC<Props> = ({comment, onDelete}) => {
+  const deleteCommentLoading = useAppSelector(selectDeleteCommentsLoading);
+
   return (
     <Grid item >
       <p><strong>{comment.user.displayName}</strong>  : {comment.description}</p>
@@ -16,7 +20,7 @@ const CommentItem: React.FC<Props> = ({comment, onDelete}) => {
               startIcon={<DeleteIcon />} variant="outlined"
               onClick={() => onDelete(comment._id.toString())}
       >
-        Delete
+        {deleteCommentLoading ? <CircularProgress/> : 'Delete'}
       </Button>
     </Grid>
   );

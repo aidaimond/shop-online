@@ -4,7 +4,7 @@ import {Address, Order, PickupMutation, ShippingMutation, ValidationError} from 
 import axiosApi from "../../axiosApi";
 import {isAxiosError} from "axios";
 
-export const fetchOrders = createAsyncThunk<Order[], string, { state: RootState, rejectValue: ValidationError }>(
+export const fetchOrders = createAsyncThunk<Order[], void, { state: RootState, rejectValue: ValidationError }>(
   'orders/fetch',
   async (_, {getState, rejectWithValue}) => {
     try {
@@ -48,6 +48,21 @@ export const createPickup = createAsyncThunk<void, PickupMutation, { state: Root
     try {
       const token = getState().users.user?.token;
       await axiosApi.post('/orders/pickup', mutation, {headers: {'Authorization': token}});
+    } catch (e) {
+      if (isAxiosError(e) && e.response && e.response.status === 400) {
+        return rejectWithValue(e.response.data as ValidationError);
+      }
+      throw e;
+    }
+  }
+);
+
+export const updateOrderStatus = createAsyncThunk<void, { id: string, mutation: string }, { rejectValue: ValidationError }>(
+  'orders/updateStatus',
+  async ({ id, mutation }, { rejectWithValue }) => {
+    try {
+      const response = await axiosApi.put(`/orders/${id}`, { status: mutation });
+      return response.data;
     } catch (e) {
       if (isAxiosError(e) && e.response && e.response.status === 400) {
         return rejectWithValue(e.response.data as ValidationError);

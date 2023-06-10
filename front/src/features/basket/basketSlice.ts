@@ -7,12 +7,16 @@ interface BasketState {
   basket: Basket[];
   basketLoading: boolean;
   createBasketLoading: boolean;
+  deleteBasketProductLoading: boolean;
+  deleteBasketLoading: boolean;
 }
 
 const initialState: BasketState = {
   basket: [],
   basketLoading: false,
   createBasketLoading: false,
+  deleteBasketLoading:false,
+  deleteBasketProductLoading: false,
 };
 
 export const basketSlice = createSlice({
@@ -32,36 +36,36 @@ export const basketSlice = createSlice({
     });
 
     builder.addCase(createBasket.pending, (state) => {
-      state.basketLoading = true;
+      state.createBasketLoading = true;
     });
     builder.addCase(createBasket.fulfilled, (state) => {
-      state.basketLoading = false;
+      state.createBasketLoading = false;
 
     });
     builder.addCase(createBasket.rejected, (state) => {
-      state.basketLoading = false;
+      state.createBasketLoading = false;
     });
 
     builder.addCase(deleteBasketProduct.pending, (state) => {
-      state.basketLoading = true;
+      state.deleteBasketProductLoading = true;
     });
     builder.addCase(deleteBasketProduct.fulfilled, (state) => {
-      state.basketLoading = false;
+      state.deleteBasketProductLoading = false;
 
     });
     builder.addCase(deleteBasketProduct.rejected, (state) => {
-      state.basketLoading = false;
+      state.deleteBasketProductLoading = false;
     });
 
     builder.addCase(deleteBasket.pending, (state) => {
-      state.basketLoading = true;
+      state.deleteBasketLoading = true;
     });
     builder.addCase(deleteBasket.fulfilled, (state) => {
-      state.basketLoading = false;
+      state.deleteBasketLoading = false;
 
     });
     builder.addCase(deleteBasket.rejected, (state) => {
-      state.basketLoading = false;
+      state.deleteBasketLoading = false;
     });
   }
 });
@@ -70,3 +74,5 @@ export const basketReducer = basketSlice.reducer;
 
 export const selectBasket = (state: RootState) => state.basket.basket;
 export const selectBasketLoading = (state: RootState) => state.basket.basketLoading;
+export const selectCreateBasketLoading = (state: RootState) => state.basket.createBasketLoading;
+export const selectDeleteBasketProductLoading = (state: RootState) => state.basket.deleteBasketProductLoading;

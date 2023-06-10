@@ -5,7 +5,9 @@ import {apiURL} from "../../constants";
 import {styled} from '@mui/system';
 import BeigeButton from "../../components/beigeButton/BeigeButton";
 import {createBasket, deleteBasketProduct, fetchBasket} from "./basketThunks";
-import {useAppDispatch} from "../../app/hooks";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
+import {selectCreateBasketLoading, selectDeleteBasketProductLoading} from "./basketSlice";
+import {CircularProgress} from "@mui/material";
 
 const StyledButtonWrapper = styled('div')`
   display: flex;
@@ -21,6 +23,8 @@ interface Props {
 const BasketItem: React.FC<Props> = ({product, amount}) => {
 
   const dispatch = useAppDispatch();
+  const deleteLoading = useAppSelector(selectDeleteBasketProductLoading);
+  const createLoading = useAppSelector(selectCreateBasketLoading);
 
   const addItem = async () => {
     await dispatch(createBasket(product._id));
@@ -45,8 +49,8 @@ const BasketItem: React.FC<Props> = ({product, amount}) => {
         <Typography variant="body2">Quantity: {amount}</Typography>
       </div>
       <StyledButtonWrapper>
-        <BeigeButton onClick={deleteItem} buttonName={'-'}/>
-        <BeigeButton onClick={addItem} buttonName={'+'}/>
+        {deleteLoading ? <CircularProgress/> : <BeigeButton onClick={deleteItem} buttonName={'-'}/>}
+        {createLoading ? <CircularProgress/> : <BeigeButton onClick={addItem} buttonName={'+'}/>}
       </StyledButtonWrapper>
     </div>
   );

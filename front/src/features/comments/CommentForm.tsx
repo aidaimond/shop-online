@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import {Button, Grid, TextField} from '@mui/material';
+import {Button, CircularProgress, Grid, TextField} from '@mui/material';
 import {CommentsMutation} from "../../types";
+import {useAppSelector} from "../../app/hooks";
+import {selectCreateCommentsLoading} from "./CommentSlice";
 
 interface Props {
   onSubmit: (mutation: CommentsMutation) => void;
@@ -11,6 +13,7 @@ const CommentForm: React.FC<Props> = ({onSubmit}) => {
   const [state, setState] = useState<CommentsMutation>({
     description: '',
   });
+  const createCommentLoading = useAppSelector(selectCreateCommentsLoading);
 
   const onFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,7 +50,7 @@ const CommentForm: React.FC<Props> = ({onSubmit}) => {
         <Grid item xs>
           <Button type="submit" color="secondary" variant="contained" sx={{marginTop: '10px'}}
                   disabled={state.description === ''}>
-            Add
+            {createCommentLoading ? <CircularProgress/> : 'Add'}
           </Button>
         </Grid>
       </Grid>

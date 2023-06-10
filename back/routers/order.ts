@@ -8,6 +8,19 @@ import Pickup from "../models/Pickup";
 
 export const orderRouter = express.Router();
 
+orderRouter.get('/', auth, async (req, res, next) => {
+  try {
+    const user = (req as RequestWithUser).user;
+    if (user.role === 'admin') {
+      const order = await Order.find().populate('basketItems.product');
+      return res.send(order);
+    }
+    return res.send({message: 'You are do not have permissions'})
+  } catch (e) {
+    return next(e);
+  }
+});
+
 orderRouter.post('/', auth, async (req, res, next) => {
   try {
     const user = (req as RequestWithUser).user;
@@ -71,6 +84,31 @@ orderRouter.post('/pickup', auth, async (req, res, next) => {
     } else {
       return next(e);
     }
+  }
+});
+
+orderRouter.put('/:id', auth, async (req, res, next) => {
+  try {
+    const user = (req as RequestWithUser).user;
+    if (user.role === 'admin') {
+      const orderId = req.params.id;
+      const newStatus = req.body.status;
+
+      const order = await Order.findByIdAndUpdate(
+        orderId,
+        {status: newStatus},
+        {new: true}
+      );
+
+      if (!order) {
+        return res.status(404).json({message: 'Order not found or does not belong to the current user'});
+      }
+      return res.send(order);
+    }
+
+    return res.send({message: 'You are do not have permissions'})
+  } catch (e) {
+    return next(e);
   }
 });
 

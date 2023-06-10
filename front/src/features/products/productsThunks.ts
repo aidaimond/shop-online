@@ -52,7 +52,7 @@ export const fetchOne = createAsyncThunk<Product, string>(
 );
 
 export const deleteProduct = createAsyncThunk<void, string, { state: RootState }>(
-  'users/logout',
+  'products/delete',
   async (id, {getState}) => {
     const token = getState().users.user?.token;
 

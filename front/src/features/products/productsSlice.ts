@@ -51,14 +51,14 @@ export const productsSlice = createSlice({
     });
 
     builder.addCase(fetchOne.pending, (state) => {
-      state.createProductsLoading = true;
+      state.oneProductLoading = true;
     });
     builder.addCase(fetchOne.fulfilled, (state, action) => {
       state.oneProduct = action.payload;
-      state.createProductsLoading = false;
+      state.oneProductLoading = false;
     });
     builder.addCase(fetchOne.rejected, (state) => {
-      state.createProductsLoading = false;
+      state.oneProductLoading = false;
     });
   }
 });

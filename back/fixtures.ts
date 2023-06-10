@@ -6,6 +6,7 @@ import Product from './models/Product';
 import User from './models/User';
 import Subcategory from "./models/Subcategory";
 import Brand from "./models/Brand";
+import Address from "./models/Address";
 
 const run = async () => {
   mongoose.set('strictQuery', false);
@@ -18,6 +19,7 @@ const run = async () => {
     await db.dropCollection('users');
     await db.dropCollection('brands');
     await db.dropCollection('subcategories');
+    await db.dropCollection('addresses');
   } catch (e) {
     console.log('Collections were not present, skipping drop...');
   }
@@ -55,7 +57,7 @@ const run = async () => {
     },
     {
       email: 'admin@mail.ru',
-      password: '2wsx3edc',
+      password: '1qaz2wsx',
       avatar: 'fixtures/attractor.jpeg',
       displayName: 'Admin',
       token: crypto.randomUUID(),
@@ -164,6 +166,13 @@ const run = async () => {
       user: user2._id,
       datetime: '2023-03-04T08:05:05.990Z',
     });
+
+  const [ny, la, lv] = await Address.create({
+    title: "WESTFIELD WORLD TRADE CENTER", description: "STE #LL4310 185 GREENWICH ST, 10007, NEW YORK"
+  }, {title: "SOHO NEW YORK", description: "542 BROADWAY, 10012, NEW YORK"}, {
+    title: "NEWPORT CENTRE",
+    description: "30-210A MALL DRIVE W SPC B35C, 07310, JERSEY CITY"
+  });
 
   await db.close();
 };
