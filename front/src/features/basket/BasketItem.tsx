@@ -4,7 +4,7 @@ import {Product} from "../../types";
 import {apiURL} from "../../constants";
 import {styled} from '@mui/system';
 import BeigeButton from "../../components/beigeButton/BeigeButton";
-import {createBasket, deleteBasket, fetchBasket} from "./basketThunks";
+import {createBasket, deleteBasketProduct, fetchBasket} from "./basketThunks";
 import {useAppDispatch} from "../../app/hooks";
 
 const StyledButtonWrapper = styled('div')`
@@ -28,7 +28,7 @@ const BasketItem: React.FC<Props> = ({product, amount}) => {
   };
 
   const deleteItem = async () => {
-    await dispatch(deleteBasket(product._id));
+    await dispatch(deleteBasketProduct(product._id));
     await dispatch(fetchBasket());
   };
 

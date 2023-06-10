@@ -9,6 +9,9 @@ basketRouter.get('/', auth, async (req, res, next) => {
   try {
     const user = (req as RequestWithUser).user;
     const basket = await Basket.find({user: user._id}).populate('basketItems.product');
+    if(basket.length === 0) {
+      return res.send([]).status(200);
+    }
     return res.send(basket[0].basketItems);
   } catch (e) {
     return next(e);
@@ -48,7 +51,7 @@ basketRouter.post('/', auth, async (req, res, next) => {
   }
 });
 
-basketRouter.delete("/:id", auth, async (req, res, next) => {
+basketRouter.patch("/:id", auth, async (req, res, next) => {
   try {
     const user = (req as RequestWithUser).user;
     const productId = req.params.id;
@@ -70,14 +73,14 @@ basketRouter.delete("/:id", auth, async (req, res, next) => {
     if (existingProduct.amount > 1) {
       existingProduct.amount -= 1;
       await basket.save();
+      return res.send("Product quantity decreased.");
     } else {
       basket.basketItems = basket.basketItems.filter(
         (product) => product.product.toString() !== productId
       );
       await basket.save();
+      return res.send("Product removed from the basket.");
     }
-
-    return res.send("Product removed from the basket.");
 
   } catch (e) {
     if (e instanceof mongoose.Error.ValidationError) {
@@ -87,5 +90,27 @@ basketRouter.delete("/:id", auth, async (req, res, next) => {
     }
   }
 });
+
+basketRouter.delete('/', auth, async (req, res, next) => {
+  try {
+    const user = (req as RequestWithUser).user;
+    const basket = await Basket.findOne({ user: user._id });
+
+    if (!basket) {
+      return res.status(404).send("Basket not found.");
+    }
+
+    await Basket.deleteOne({ user: user._id });
+
+    return res.status(200).send();
+  } catch (e) {
+    if (e instanceof mongoose.Error.ValidationError) {
+      return res.status(400).send(e);
+    } else {
+      return next(e);
+    }
+  }
+});
+
 
 export default basketRouter;

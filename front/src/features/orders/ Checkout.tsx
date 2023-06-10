@@ -5,6 +5,7 @@ import {Navigate, useNavigate} from "react-router-dom";
 import {ShippingMutation} from "../../types";
 import ShippingForm from "./ShippingForm";
 import {createOrder} from "./orderThunks";
+import {deleteBasket} from "../basket/basketThunks";
 
 const Checkout = () => {
   const basket = useAppSelector(selectBasket);
@@ -17,6 +18,7 @@ const Checkout = () => {
 
   const onFormSubmit = async (mutation: ShippingMutation) => {
     dispatch(createOrder(mutation));
+    dispatch(deleteBasket());
     navigate('/');
   };
   return (

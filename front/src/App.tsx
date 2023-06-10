@@ -9,6 +9,7 @@ import Login from "./features/users/Login";
 import Products from "./features/products/Products";
 import Basket from "./features/basket/Basket";
 import Checkout from "./features/orders/ Checkout";
+import Pickup from "./features/orders/Pickup";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/products/:categoryId" element={<Products/>}/>
             <Route path="/basket" element={<Basket/>}/>
             <Route path="/checkout" element={<Checkout/>}/>
+            <Route path="/pickup" element={<Pickup/>}/>
             <Route path="/product/:id" element={<OneProduct/>}/>
             <Route path="/new-product" element={<NewProduct/>}/>
             <Route path={'/register'} element={<Register/>} />

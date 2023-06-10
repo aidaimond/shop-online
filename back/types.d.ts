@@ -47,3 +47,10 @@ export interface IOrder {
   user: string;
   datetime: string;
 }
+
+export interface IPickup {
+  basketItems: IBasket[],
+  address: string;
+  user: string;
+  datetime: string;
+}

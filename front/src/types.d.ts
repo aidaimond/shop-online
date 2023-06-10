@@ -115,3 +115,13 @@ export interface ShippingMutation {
   floor: string;
   notes: string;
 }
+
+export interface Address {
+  _id: string;
+  title: string;
+  description: string;
+}
+
+export interface PickupMutation {
+  address: string;
+}

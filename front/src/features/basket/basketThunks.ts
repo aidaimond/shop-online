@@ -28,12 +28,27 @@ export const createBasket = createAsyncThunk<void, string, { state: RootState, r
   }
 );
 
-export const deleteBasket = createAsyncThunk<void, string, { state: RootState, rejectValue: ValidationError }>(
-  'basket/delete',
+export const deleteBasketProduct = createAsyncThunk<void, string, { state: RootState, rejectValue: ValidationError }>(
+  'basket/deleteProduct',
   async (id,  {getState, rejectWithValue}) => {
     try {
       const token = getState().users.user?.token;
-      await axiosApi.delete(`/basket/${id}`, { headers: { 'Authorization': token } });
+      await axiosApi.patch(`/basket/${id}`, { headers: { 'Authorization': token } });
+    } catch (e) {
+      if (isAxiosError(e) && e.response && e.response.status === 400) {
+        return rejectWithValue(e.response.data as ValidationError);
+      }
+      throw e;
+    }
+  }
+);
+
+export const deleteBasket = createAsyncThunk<void,void, { state: RootState, rejectValue: ValidationError }>(
+  'basket/delete',
+  async (_, {getState, rejectWithValue}) => {
+    try {
+      const token = getState().users.user?.token;
+      await axiosApi.delete('/basket', { headers: { 'Authorization': token } });
     } catch (e) {
       if (isAxiosError(e) && e.response && e.response.status === 400) {
         return rejectWithValue(e.response.data as ValidationError);

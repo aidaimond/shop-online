@@ -1,14 +1,17 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {fetchOrders} from "./orderThunks";
-import {Order} from "../../types";
+import {createOrder, fetchAddress, fetchOrders} from "./orderThunks";
+import {Address, Order} from "../../types";
+import {RootState} from "../../app/store";
 
 interface OrderState {
   orders: Order[];
+  address: Address[];
   orderLoading: boolean;
 }
 
 const initialState: OrderState = {
   orders: [],
+  address: [],
   orderLoading: false,
 };
 
@@ -17,19 +20,43 @@ const orderSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder
-      .addCase(fetchOrders.pending, (state) => {
-        state.orderLoading = true;
-      })
-      .addCase(fetchOrders.fulfilled, (state, action) => {
-        state.orderLoading = false;
-        state.orders = action.payload;
-      })
-      .addCase(fetchOrders.rejected, (state) => {
-        state.orderLoading = false;
-      });
+    builder.addCase(fetchOrders.pending, (state) => {
+      state.orderLoading = true;
+    });
+    builder.addCase(fetchOrders.fulfilled, (state, action) => {
+      state.orderLoading = false;
+      state.orders = action.payload;
+    });
+    builder.addCase(fetchOrders.rejected, (state) => {
+      state.orderLoading = false;
+    });
+
+    builder.addCase(createOrder.pending, (state) => {
+      state.orderLoading = true;
+    });
+    builder.addCase(createOrder.fulfilled, (state) => {
+      state.orderLoading = false;
+    });
+    builder.addCase(createOrder.rejected, (state) => {
+      state.orderLoading = false;
+    });
+
+    builder.addCase(fetchAddress.pending, (state) => {
+      state.orderLoading = true;
+    });
+    builder.addCase(fetchAddress.fulfilled, (state, action) => {
+      state.orderLoading = false;
+      state.address = action.payload;
+    });
+    builder.addCase(fetchAddress.rejected, (state) => {
+      state.orderLoading = false;
+    });
   },
+
 });
 
 export const orderReducer = orderSlice.reducer;
+
+export const selectOrders = (state: RootState) => state.orders.orders;
+export const selectAddress = (state: RootState) => state.orders.address;
 
